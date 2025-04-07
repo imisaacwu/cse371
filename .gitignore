@@ -1,0 +1,17 @@
+# Quartus Output files
+db/
+incremental_db/
+output_files/
+simulation/
+work/
+
+# Generated files
+c5_pin_model_dump.txt
+transcript
+vsim.wlf
+*.qws
+*.srf
+*.bak
+
+# OS X finder files
+.DS_Store
