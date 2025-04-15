@@ -6,6 +6,7 @@ vlib work
 #     their own "vlog" line below.
 vlog "./code/sign_mag_add.sv"
 vlog "./code/sign_mag_add_tb.sv"
+vlog "./code/sync_rom.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the
