@@ -12,6 +12,7 @@ module fifo #(parameter DATA_WIDTH=8, ADDR_WIDTH=4)
 	output logic empty, full;
 	input  logic [DATA_WIDTH-1:0] w_data;
 	output logic [DATA_WIDTH-1:0] r_data;
+	logic same_read;
 	
 	// signal declarations
 	logic [ADDR_WIDTH-1:0] w_addr, r_addr;
@@ -24,5 +25,13 @@ module fifo #(parameter DATA_WIDTH=8, ADDR_WIDTH=4)
 	// instantiate FIFO controller and register file
 	fifo_ctrl #(ADDR_WIDTH) c_unit (.*);
 	reg_file #(DATA_WIDTH, ADDR_WIDTH) r_unit (.*);
+	
+	// The write and read addresses are like normal
+	// In this case, 4 address bits, so 16 words can be stored
+	// it writes 16 bit words, but reads only 8 bits at a time
+	// needs to stay on an address when incrementing read
+	// Every address, it reads the first 8 bits, increments some toggle for staying on the same addr
+	// if same_addr == 1, same_addr = 0 and addr_ptr + 1
+	// if same_addr, read last 8 bits instead of first 8 bits
 	
 endmodule  // fifo

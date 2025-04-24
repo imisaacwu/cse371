@@ -2,7 +2,8 @@
 module hw3p3_tb ();
 	
 	// for you to implement
-	
+	logic clk, reset, X, Ya, Yb, Yc, Z1, Z2;
+
 	hw3p3 dut (.*);
 	
 	initial begin

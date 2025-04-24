@@ -2,5 +2,6 @@
 module hw3p3 (clk, reset, X, Ya, Yb, Yc, Z1, Z2);
 	
 	// for you to implement
+	input logic clk, reset, X, Ya, Yb, Yc, Z1, Z2;
 	
 endmodule  // hw3p3
