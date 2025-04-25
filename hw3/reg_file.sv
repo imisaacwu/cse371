@@ -22,6 +22,6 @@ module reg_file #(parameter DATA_WIDTH=8, ADDR_WIDTH=2)
 		end
 	
 	// read operation (asynchronous)
-	r_data = array_reg[r_addr];
+	assign r_data = array_reg[r_addr];
 	
 endmodule  // reg_file
