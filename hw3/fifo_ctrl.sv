@@ -48,7 +48,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 			2'b11:  // read and write
 				begin
 					rd_ptr_next = rd_ptr + 1'b1;
-					wr_ptr_next = wr_ptr + 1'b1;
+					wr_ptr_next = wr_ptr + 2'10;
 				end
 			2'b10:  // read
 				if (~empty)
