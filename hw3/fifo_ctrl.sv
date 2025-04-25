@@ -27,7 +27,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 				rd_ptr <= 0;
 				full   <= 0;
 				empty  <= 1;
-				same_read <= 1;
+				same_read <= 0;
 			end
 		else
 			begin
@@ -49,13 +49,13 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 		case ({rd, wr})
 			2'b11:  // read and write
 				begin
-					if (~same_read) begin
+					if (same_read) begin
 						rd_ptr_next = rd_ptr + 1'b1;
 					end
 					wr_ptr_next = wr_ptr + 1'b1;
 				end
 			2'b10:  // read
-				if (~empty && ~same_read)
+				if (~empty && same_read)
 					begin
 						rd_ptr_next = rd_ptr + 1'b1;
 						if (rd_ptr_next == wr_ptr)
