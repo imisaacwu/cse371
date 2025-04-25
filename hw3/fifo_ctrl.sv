@@ -35,7 +35,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 				rd_ptr <= rd_ptr_next;
 				full   <= full_next;
 				empty  <= empty_next;
-				same_read <= same_read ? 0 : 1;
+				if (rd) same_read <= ~same_read;
 			end
 	end  // always_ff
 	
