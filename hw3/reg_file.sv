@@ -2,7 +2,7 @@
  * Asynchronous read port (r_addr -> r_data) and synchronous write
  * port (w_data -> w_addr if w_en).
  */
-module reg_file #(parameter DATA_WIDTH=8, ADDR_WIDTH=4) // is addr supposed to be 2 or 4?
+module reg_file #(parameter DATA_WIDTH=8, ADDR_WIDTH=2)
                 (clk, w_data, w_en, w_addr, r_addr, r_data, same_read);
 
 	input  logic clk, w_en, same_read;
