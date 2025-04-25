@@ -2,12 +2,12 @@
  * Asynchronous read port (r_addr -> r_data) and synchronous write
  * port (w_data -> w_addr if w_en).
  */
-module reg_file #(parameter DATA_WIDTH=16, ADDR_WIDTH=2)
+module reg_file #(parameter DATA_WIDTH=8, ADDR_WIDTH=2) // is addr supposed to be 2 or 4?
                 (clk, w_data, w_en, w_addr, r_addr, r_data, same_read);
 
 	input  logic clk, w_en, same_read;
 	input  logic [ADDR_WIDTH-1:0] w_addr, r_addr;
-	input  logic [DATA_WIDTH-1:0] w_data;
+	input  logic [2*DATA_WIDTH-1:0] w_data;
 	output logic [DATA_WIDTH-1:0] r_data;
 	
 	// array declaration (registers)
@@ -22,9 +22,9 @@ module reg_file #(parameter DATA_WIDTH=16, ADDR_WIDTH=2)
 	// read operation (asynchronous)
 	always_comb begin
 		if (same_read) begin
-			r_data = array_reg[r_addr][DATA_WIDTH/2-1:0];
+			r_data = array_reg[r_addr][DATA_WIDTH-1:0];
 		end else begin
-			r_data = array_reg[r_addr][DATA_WIDTH-1:DATA_WIDTH/2];
+			r_data = array_reg[r_addr][2*DATA_WIDTH-1:DATA_WIDTH];
 		end
 	end // always_comb
 	
