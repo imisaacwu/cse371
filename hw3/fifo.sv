@@ -12,7 +12,6 @@ module fifo #(parameter DATA_WIDTH=8, ADDR_WIDTH=4)
 	output logic empty, full;
 	input  logic [2*DATA_WIDTH-1:0] w_data;
 	output logic [DATA_WIDTH-1:0] r_data;
-	logic same_read;
 	
 	// signal declarations
 	logic [ADDR_WIDTH-1:0] w_addr, r_addr;

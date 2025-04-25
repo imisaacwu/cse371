@@ -4,10 +4,10 @@
  * signals empty and full.
  */
 module fifo_ctrl #(parameter ADDR_WIDTH=4)
-                 (clk, reset, rd, wr, empty, full, w_addr, r_addr, same_read);
+                 (clk, reset, rd, wr, empty, full, w_addr, r_addr);
 	
 	input  logic clk, reset, rd, wr;
-	output logic empty, full, same_read;
+	output logic empty, full
 	output logic [ADDR_WIDTH-1:0] w_addr, r_addr;
 	
 	// signal declarations
@@ -27,7 +27,6 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 				rd_ptr <= 0;
 				full   <= 0;
 				empty  <= 1;
-				same_read <= 0;
 			end
 		else
 			begin
@@ -35,7 +34,6 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 				rd_ptr <= rd_ptr_next;
 				full   <= full_next;
 				empty  <= empty_next;
-				if (rd) same_read <= ~same_read;
 			end
 	end  // always_ff
 	
@@ -49,13 +47,11 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 		case ({rd, wr})
 			2'b11:  // read and write
 				begin
-					if (same_read) begin
-						rd_ptr_next = rd_ptr + 1'b1;
-					end
+					rd_ptr_next = rd_ptr + 1'b1;
 					wr_ptr_next = wr_ptr + 1'b1;
 				end
 			2'b10:  // read
-				if (~empty && same_read)
+				if (~empty)
 					begin
 						rd_ptr_next = rd_ptr + 1'b1;
 						if (rd_ptr_next == wr_ptr)
@@ -65,7 +61,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 			2'b01:  // write
 				if (~full)
 					begin
-						wr_ptr_next = wr_ptr + 1'b1;
+						wr_ptr_next = wr_ptr + 2'b10;
 						empty_next = 0;
 						if (wr_ptr_next == rd_ptr)
 							full_next = 1;
