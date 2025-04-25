@@ -51,6 +51,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 					if (~full) wr_ptr_next = wr_ptr + 2'b10;
 					if (rd_ptr_next == wr_ptr_next)
 							full_next = 1;
+					else	full_next = 0;
 					empty_next = 0;
 				end
 			2'b10:  // read
