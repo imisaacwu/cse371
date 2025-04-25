@@ -7,7 +7,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
                  (clk, reset, rd, wr, empty, full, w_addr, r_addr);
 	
 	input  logic clk, reset, rd, wr;
-	output logic empty, full
+	output logic empty, full;
 	output logic [ADDR_WIDTH-1:0] w_addr, r_addr;
 	
 	// signal declarations
@@ -48,7 +48,7 @@ module fifo_ctrl #(parameter ADDR_WIDTH=4)
 			2'b11:  // read and write
 				begin
 					rd_ptr_next = rd_ptr + 1'b1;
-					wr_ptr_next = wr_ptr + 2'10;
+					wr_ptr_next = wr_ptr + 2'b10;
 				end
 			2'b10:  // read
 				if (~empty)

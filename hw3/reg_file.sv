@@ -16,15 +16,12 @@ module reg_file #(parameter DATA_WIDTH=8, ADDR_WIDTH=2)
 	
 	// write operation (synchronous)
 	always_ff @(posedge clk)
-	   if (w_en)
+	   if (w_en) begin
 		   array_reg[w_addr] <= w_data[2*DATA_WIDTH-1:DATA_WIDTH];
 			array_reg[w_addr + 1'b1] <= w_data[DATA_WIDTH-1:0];
+		end
 	
 	// read operation (asynchronous)
-	always_comb begin
-		if (same_read) begin
-			r_data = array_reg[r_addr]
-		end
-	end // always_comb
+	r_data = array_reg[r_addr];
 	
 endmodule  // reg_file
