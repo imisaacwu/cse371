@@ -4,12 +4,12 @@ vlib work
 # Compile Verilog
 #     All Verilog files that are part of this design should have
 #     their own "vlog" line below.
-vlog "./divider.v"
+vlog "./divider.sv"
 vlog "./divider_tb.sv"
-vlog "./downcount.v"
-vlog "./muxdff.v"
-vlog "./regne.v"
-vlog "./shiftlne.v"
+vlog "./downcount.sv"
+vlog "./muxdff.sv"
+vlog "./regne.sv"
+vlog "./shiftlne.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the
