@@ -65,10 +65,10 @@ module divider (Clock, Resetn, s, LA, EB, DataA, DataB, R, Q, Done);
 		Rsel = 0; Done = 0;
 		case (y)
 			S1:	begin
-					LC = 1; ER = 1; //Rsel = 0; //added Rsel = 0 as is set in S1
+					LC = 1; ER = 1; Rsel = 0; //added Rsel = 0 as is set in S1
 					if (s == 0)
 					begin
-						LR = 1; ER0 = 0;
+						LR = 1; ER0 = 0; EA = 0; // sets EA to 0 as it's not set when s=0
 					end
 					else
 					begin
@@ -96,15 +96,16 @@ module divider (Clock, Resetn, s, LA, EB, DataA, DataB, R, Q, Done);
 	shiftlne ShiftA (DataA, LA, EA, Cout, Clock, A);
 		defparam ShiftA.n = n;
 	assign Q = A;
-	downcount Counter (n-1, Clock, EC, LC, Count); //why is counter starting from 0? should start from ...
-		defparam Counter.n = logn;
+	downcount Counter ($clog2(n)'(n - 1), Clock, EC, LC, Count); // changed counter to start from max value
+		defparam Counter.n = logn;											 // used clog2 to convert n-1 to logic
 
 	assign z = (Count == 0);
-	assign Sum = {1'b0, R[n-2:0], R0} + {1'b0, ~B} + 1'b1;
+	assign Sum = {1'b0, R[n-2:0], R0} + {1'b0, ~B} + 1'b1; // changed to 1'b1 to avoid truncation warnings
 	assign Cout = Sum[n];
 	
 	// define the n 2-to-1 multiplexers
-	assign DataR = Rsel ? Sum : '0;
+	assign DataR = Rsel ? Sum[n-1:0] : '0; // changed to sum[n-1:0] to ignore "cout" bit of sum 
+														// also use '0 instead of 0 to avoid truncate issue
 
 endmodule
 
