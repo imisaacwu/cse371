@@ -65,7 +65,7 @@ module divider (Clock, Resetn, s, LA, EB, DataA, DataB, R, Q, Done);
 		Rsel = 0; Done = 0;
 		case (y)
 			S1:	begin
-					LC = 1; ER = 1;
+					LC = 1; ER = 1; Rsel = 0; //added Rsel = 0 as is set in S1
 					if (s == 0)
 					begin
 						LR = 1; ER0 = 0;
