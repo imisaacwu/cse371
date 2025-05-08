@@ -65,7 +65,7 @@ module divider (Clock, Resetn, s, LA, EB, DataA, DataB, R, Q, Done);
 		Rsel = 0; Done = 0;
 		case (y)
 			S1:	begin
-					LC = 1; ER = 1; Rsel = 0; //added Rsel = 0 as is set in S1
+					LC = 1; ER = 1; //Rsel = 0; //added Rsel = 0 as is set in S1
 					if (s == 0)
 					begin
 						LR = 1; ER0 = 0;
@@ -96,15 +96,15 @@ module divider (Clock, Resetn, s, LA, EB, DataA, DataB, R, Q, Done);
 	shiftlne ShiftA (DataA, LA, EA, Cout, Clock, A);
 		defparam ShiftA.n = n;
 	assign Q = A;
-	downcount Counter (3'b000, Clock, EC, LC, Count);
+	downcount Counter (n-1, Clock, EC, LC, Count); //why is counter starting from 0? should start from ...
 		defparam Counter.n = logn;
 
 	assign z = (Count == 0);
-	assign Sum = {1'b0, R[n-2:0], R0} + {1'b0, ~B} + 1;
+	assign Sum = {1'b0, R[n-2:0], R0} + {1'b0, ~B} + 1'b1;
 	assign Cout = Sum[n];
 	
 	// define the n 2-to-1 multiplexers
-	assign DataR = Rsel ? Sum : 0;
+	assign DataR = Rsel ? Sum : '0;
 
 endmodule
 

@@ -15,7 +15,7 @@ module divider_tb();
 		Resetn <= 1;                             	@(posedge clk);
 		
 		// Try a divide
-		DataA <= 8'h07; DataB <= 8'h02;          	@(posedge clk); // Delay to load registers
+		DataA <= 8'hFF; DataB <= 8'hA7;          	@(posedge clk); // Delay to load registers
 		LA <= 1; EB <= 1;									@(posedge clk);
 		LA <= 0; EB <= 0;									@(posedge clk);
 		
