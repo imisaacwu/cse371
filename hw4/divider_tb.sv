@@ -11,12 +11,15 @@ module divider_tb();
 	divider dut (.Clock(clk), .*);
 	
 	initial begin
-		{Resetn, s, LA, EB, DataA, DataB} <= '0; @(posedge clk); // Reset all inputs
-		Resetn <= 1;                             @(posedge clk);
+		{Resetn, s, LA, EB, DataA, DataB} <= '0; 	@(posedge clk); // Reset all inputs
+		Resetn <= 1;                             	@(posedge clk);
 		
 		// Try a divide
-		DataA <= 8'h07; DataB <= 8'h02;          @(posedge clk); // Delay to load registers
-		s <= 1;                                  @(posedge clk);
+		DataA <= 8'h07; DataB <= 8'h02;          	@(posedge clk); // Delay to load registers
+		LA <= 1; EB <= 1;									@(posedge clk);
+		LA <= 0; EB <= 0;									@(posedge clk);
+		
+		s <= 1;                                  	@(posedge clk);
 		
 		repeat (2**5) @(posedge clk);
 

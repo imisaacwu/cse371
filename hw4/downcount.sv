@@ -22,6 +22,6 @@ module downcount (R, Clock, E, L, Q);
 		if (L)
 			Q <= R;
 		else if (E)
-			Q <= Q - 1;
+			Q <= Q - 1'b1; // changed to 1 -> 1'b1
 
 endmodule
