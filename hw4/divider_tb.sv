@@ -22,6 +22,16 @@ module divider_tb();
 		s <= 1;                                  	@(posedge clk);
 		
 		repeat (2**5) @(posedge clk);
+		
+		// divide again		
+		s <= 0;												@(posedge clk);
+		DataA <= 8'hA6; DataB <= 8'h09;          	@(posedge clk); // Delay to load registers
+		LA <= 1; EB <= 1;									@(posedge clk);
+		LA <= 0; EB <= 0;									@(posedge clk);
+		
+		s <= 1;                                  	@(posedge clk);
+		
+		repeat (2**5) @(posedge clk);
 
 		$stop;
 	end
