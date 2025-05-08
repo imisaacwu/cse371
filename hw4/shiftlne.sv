@@ -26,9 +26,9 @@ module shiftlne (R, L, E, w, Clock, Q);
 			Q <= R;
 		else if (E)
 			begin
-				Q[n-1] <= w;
-				for (k = n-2; k >= 0; k = k-1)
-					Q[k] <= Q[k+1];
+				for (k = n-1; k >= 1; k = k-1) //changed from n-1 to 1, bus could be [0, 1, 1, 0, 0] where Q[0] is rightmost and Q[n-1] is leftmost, to shift left, set Q[n-1] to Q[n-2], Q[n-2] to Q[n-3], ..., Q[1] to Q[0], Q[0] to w
+					Q[k] <= Q[k-1];
+				Q[0] <= w; //shifting shift operation order, do w last (was first before) and do Q[0]
 			end
 	end
 
