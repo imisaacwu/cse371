@@ -10,7 +10,7 @@ The element adding most of the delay is still part of reg_sum, but reg_sum[6] ra
 
 33)
 a) Fast 1100mV 0C Model has the most setup slack at 6.2ns
-b) Increasing the voltage speed increases the amount of setup slack which means the circuit itself has sped up
+b) Increasing the voltage speed increases the amount of setup slack which means the circuit itself has slowed down
 c) Increasing the temperature doesn't seem to have much an effect on the speed of the circuit, as increasing the temperature during slow voltage increases the setup slack, and increasing it during fast voltage decreases the setup slack, so it varies.
 
 34)
