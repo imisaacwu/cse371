@@ -2,7 +2,7 @@
 The element that adds the most delay is the reg_sum register, adding 20.248 nanoseconds of delay. To fix this, you could decrease the frequency/increase the period by at least 4.259ns to make sure the setup slack exceeds 0.
 
 19)
-The element adding most of the delay is still part of reg_sum, but reg_sum[6] rather than reg_sum[152]. They're both part of reg_sum but are two different bits. This makes sense because they're at earlier and later bits in the chain, reg_sum[152] is later so it has more delay, and the opposite is true for reg_sum[6], less delay and earlier in the chain of bits.
+The element adding most of the delay is still part of reg_sum, but reg_sum[6] rather than reg_sum[152]. They're both part of reg_sum but are two different bits. This makes sense because they're at earlier and later bits in the chain, reg_sum[152] is later so it has more delay, and the opposite is true for reg_sum[6], less delay and earlier in the chain of bits. It makes sense for reg_sum to have the most delay because it has the most operations being done on it, which adds clock delay.
 
 
 22) The fastest frequency you can set the clock to pass setup timing would be where the setup slack is exactly 0ns. This would be for a period which is an increase from before of 4.259ns, so the frequency would be 1/(T_orig + 4.259)
@@ -10,7 +10,7 @@ The element adding most of the delay is still part of reg_sum, but reg_sum[6] ra
 
 33)
 a) Fast 1100mV 0C Model has the most setup slack at 6.2ns
-b) Increasing the voltage speed increases the amount of setup slack which means the circuit itself has slowed down
+b) Increasing the voltage speed increases the amount of setup slack which means the circuit itself has sped up.
 c) Increasing the temperature doesn't seem to have much an effect on the speed of the circuit, as increasing the temperature during slow voltage increases the setup slack, and increasing it during fast voltage decreases the setup slack, so it varies.
 
 34)
