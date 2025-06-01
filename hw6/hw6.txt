@@ -24,11 +24,11 @@ EDA URL:
 /===========\
 | Problem 3 |
 \===========/
-EDA URL: 
+EDA URL: https://www.edaplayground.com/x/WSrJ
 
 
 /===========\
 |  Wrap-up  |
 \===========/
-Time Spent: 
+Time Spent: 1 (p3) = N total 
 Difficulty: 
