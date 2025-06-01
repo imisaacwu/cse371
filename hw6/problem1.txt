@@ -1,6 +1,4 @@
-// Code from http://www.asic-world.com/systemverilog/assertions2.html#Example_:_Concurrent_Assertion
-
-
+// Code your design here
 //+++++++++++++++++++++++++++++++++++++++++++++++++
 //   DUT With assertions
 //+++++++++++++++++++++++++++++++++++++++++++++++++
@@ -29,17 +27,42 @@ module concurrent_assertion(
   // Assertion Directive Layer
   //===============================================
   assert property (req_gnt_prop)
-  else $error("@%0dns Assertion Failed", $time);
+    else $error("@%0dns Granted was not disabled after one cycle of request being high", $time);
 
   //===============================================
   // Actual DUT RTL
   //===============================================
   always @(posedge clk)
     gnt <= req;
+    
+  //===============================================
+  // New Sequence
+  //===============================================  
+  sequence req_cycles_seq;
+    req[*1:3] ##1 ~req;
+  endsequence
+    
+    
+  //===============================================
+  // New Property Specification
+  //===============================================
+  property req_cycles_prop;
+    @(posedge clk)
+    disable iff (reset)
+      req |-> req_cycles_seq;
+  endproperty
+    
+  //===============================================
+  // Assertion Directive Layer
+  //===============================================
+  assert property (req_cycles_prop)
+    else $error("@%0dns Request was high for more than 3 clock cycles", $time);
 
 endmodule
 
 
+// Code your testbench here
+// or browse Examples
 //+++++++++++++++++++++++++++++++++++++++++++++++
 //   Testbench Code
 //+++++++++++++++++++++++++++++++++++++++++++++++
@@ -52,16 +75,35 @@ module concurrent_assertion_tb();
   always #3 clk ++;
 
   initial begin
+    $dumpfile; $dumpvars;
     reset <= 1;
     #20 reset <= 0;
     // Make the assertion pass
     #100 @ (posedge clk) req  <= 1;
     @ (posedge clk) req <= 0;
     // Make the assertion fail. Can fail multiple times
-    #100 @ (posedge clk) req  <= 1;
+    #100 @ (posedge clk) req  <= 0;
     repeat (5) @ (posedge clk);
-    req <= 0;
-    #10 $finish;
+    #100 @(posedge clk);
+    // Testing disable iff case
+    req <= 1; reset <= 1; @(posedge clk);
+    repeat (3) @ (posedge clk);
+    reset <= 0;
+    repeat (3) @ (posedge clk);    
+    req <= 0; #100 @(posedge clk);
+    // Testing assert 3 clock cycles
+    req <= 1; @(posedge clk);
+    repeat (7) @(posedge clk);
+    req <= 0; @(posedge clk);
+    #50 @(posedge clk);
+    req <= 1; @(posedge clk);
+    @(posedge clk);
+    reset <= 1;
+    repeat (5) @(posedge clk);
+    req <= 0; reset <= 0; @(posedge clk);
+    #50 @(posedge clk);
+    $finish;
+    
   end
 
   concurrent_assertion dut (clk,req,reset,gnt);
