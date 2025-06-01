@@ -8,11 +8,11 @@
 \===========/
 EDA URL: 
 
-c) change: 
-   line #: 
+c) change: Changed req from 1 to 0
+   line #: 22
 
-e) simulation time period: 
-   design of test inputs:  
+e) simulation time period: 363ns to 387ns+
+   design of test inputs: When req is set to 1, granted will be set to 1 and not be set back to 0, violating the sequence, thus asserting an error. If we enable reset, the implication is not read and no error should occur. So, first req is set to 1 but reset is enabled, so no error occurs. As soon as the reset is disabled while req is set to 1, the error occurs at time step 387ns.
 
 
 /===========\
