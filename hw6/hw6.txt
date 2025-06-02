@@ -6,7 +6,7 @@
 /===========\
 | Problem 1 |
 \===========/
-EDA URL: 
+EDA URL: https://www.edaplayground.com/x/NHAS
 
 c) change: Changed req from 1 to 0
    line #: 22
