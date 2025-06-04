@@ -30,5 +30,5 @@ EDA URL: https://www.edaplayground.com/x/WSrJ
 /===========\
 |  Wrap-up  |
 \===========/
-Time Spent: 1 (p3) = N total 
-Difficulty: 
+Time Spent: 2 + (p2) + 1 (p3) = 3 total 
+Difficulty: easy
